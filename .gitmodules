@@ -1,0 +1,3 @@
+[submodule "slupsk-tool"]
+	path = slupsk-tool
+	url = https://github.com/MartinPontius/slupsk-tool.git
