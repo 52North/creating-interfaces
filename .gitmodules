@@ -1,3 +1,6 @@
 [submodule "slupsk-tool"]
 	path = slupsk-tool
 	url = https://github.com/MartinPontius/slupsk-tool.git
+[submodule "tulcea-tool"]
+	path = tulcea-tool
+	url = https://github.com/MartinPontius/tulcea-tool.git
