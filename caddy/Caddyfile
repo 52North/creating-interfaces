@@ -1,4 +1,4 @@
-localhost {
+www.creatinginterfaces.demo.52north.org creatinginterfaces.demo.52north.org {
 
     bind 0.0.0.0
 
