@@ -1,0 +1,30 @@
+FROM python:3.7-buster
+
+RUN apt-get update && apt-get install python-gdal apache2 libapache2-mod-wsgi-py3 apache2-utils -y
+
+RUN mkdir /var/www/tulcea-tool/
+
+WORKDIR /var/www/tulcea-tool/
+
+RUN python3 -m venv venv
+
+RUN . venv/bin/activate && pip install wq==1.1.0
+
+COPY ./tulcea-tool/ /var/www/tulcea-tool/
+
+COPY ./docker-entrypoint.sh /usr/bin/docker-entrypoint.sh
+
+RUN chown -R :www-data /var/www/tulcea-tool/media/
+
+RUN chmod 777 /var/www/tulcea-tool/conf/
+
+RUN rm /etc/apache2/sites-enabled/000-default.conf
+
+RUN a2enmod expires
+RUN a2enmod ssl
+
+EXPOSE 80
+
+ENTRYPOINT [ "/usr/bin/docker-entrypoint.sh" ]
+
+CMD ["apachectl", "-D", "FOREGROUND"]

@@ -1,0 +1,16 @@
+localhost {
+
+    bind 0.0.0.0
+
+    proxy /slupsk-tool/ slupsk-tool:80 {
+        transparent
+    }
+
+    proxy /tulcea-tool/ tulcea-tool:80 {
+        transparent
+    }
+
+}
+
+
+

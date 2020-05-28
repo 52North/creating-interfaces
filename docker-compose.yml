@@ -1,0 +1,77 @@
+version: '3'
+
+services:
+  db-slupsk:
+    image: mdillon/postgis
+    container_name: db-slupsk
+    volumes:
+      - ./pgdata_slupsk:/var/lib/postgresql/data
+      - ./initdb_slupsk.sh:/docker-entrypoint-initdb.d/initdb.sh
+    networks:
+      - creating-interfaces
+    environment:
+      - SLUPSK_DB_PW=${SLUPSK_DB_PW}
+  db-tulcea:
+    image: mdillon/postgis
+    container_name: db-tulcea
+    volumes:
+      - ./pgdata_tulcea:/var/lib/postgresql/data
+      - ./initdb_tulcea.sh:/docker-entrypoint-initdb.d/initdb.sh
+    networks:
+      - creating-interfaces
+    environment:
+      - TULCEA_DB_PW=${TULCEA_DB_PW}
+  slupsk-tool:
+    image: slupsk-tool
+    container_name: slupsk-tool
+    build:
+      context: .
+      dockerfile: Dockerfile_slupsk
+    volumes:
+      - ./SlupskTool.conf:/etc/apache2/sites-enabled/SlupskTool.conf
+    networks:
+      - creating-interfaces
+    environment:
+      - SLUPSK_DB_PW=${SLUPSK_DB_PW}
+      - SLUPSK_SECRET_KEY=${SLUPSK_SECRET_KEY}
+    depends_on:
+      - db-slupsk
+  tulcea-tool:
+    image: tulcea-tool
+    container_name: tulcea-tool
+    build:
+      context: .
+      dockerfile: Dockerfile_tulcea
+    volumes:
+      - ./TulceaTool.conf:/etc/apache2/sites-enabled/TulceaTool.conf
+    networks:
+      - creating-interfaces
+    environment:
+      - TULCEA_DB_PW=${TULCEA_DB_PW}
+      - TULCEA_SECRET_KEY=${TULCEA_SECRET_KEY}
+    depends_on:
+      - db-tulcea
+  proxy:
+    container_name: proxy
+    image: proxy:latest
+    build:
+      context: https://github.com/abiosoft/caddy-docker.git
+      dockerfile: Dockerfile-no-stats
+      args:
+        plugins:
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./caddy/Caddyfile:/etc/Caddyfile
+    depends_on:
+      - slupsk-tool
+      - tulcea-tool
+    command: --conf /etc/Caddyfile --port 443 --log stdout --agree=true
+    networks:
+      - creating-interfaces
+    #restart: unless-stopped
+
+networks:
+  creating-interfaces:
+    driver: bridge
