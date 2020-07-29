@@ -5,7 +5,7 @@ services:
     image: mdillon/postgis
     container_name: db-slupsk
     volumes:
-      - ./pgdata_slupsk:/var/lib/postgresql/data
+      - pgdata_slupsk:/var/lib/postgresql/data
       - ./initdb_slupsk.sh:/docker-entrypoint-initdb.d/initdb.sh
     networks:
       - creating-interfaces
@@ -15,7 +15,7 @@ services:
     image: mdillon/postgis
     container_name: db-tulcea
     volumes:
-      - ./pgdata_tulcea:/var/lib/postgresql/data
+      - pgdata_tulcea:/var/lib/postgresql/data
       - ./initdb_tulcea.sh:/docker-entrypoint-initdb.d/initdb.sh
     networks:
       - creating-interfaces
@@ -29,6 +29,7 @@ services:
       dockerfile: Dockerfile_slupsk
     volumes:
       - ./SlupskTool.conf:/etc/apache2/sites-enabled/SlupskTool.conf
+      - media-slupsk:/var/www/slupsk-tool/media
     networks:
       - creating-interfaces
     environment:
@@ -44,6 +45,7 @@ services:
       dockerfile: Dockerfile_tulcea
     volumes:
       - ./TulceaTool.conf:/etc/apache2/sites-enabled/TulceaTool.conf
+      - media-tulcea:/var/www/tulcea-tool/media
     networks:
       - creating-interfaces
     environment:
@@ -75,3 +77,9 @@ services:
 networks:
   creating-interfaces:
     driver: bridge
+
+volumes:
+  pgdata_slupsk:
+  pgdata_tulcea:
+  media-slupsk:
+  media-tulcea:

@@ -16,6 +16,8 @@ COPY ./docker-entrypoint.sh /usr/bin/docker-entrypoint.sh
 
 RUN chown -R :www-data /var/www/tulcea-tool/media/
 
+RUN chmod ug+w /var/www/tulcea-tool/media/
+
 RUN chmod 777 /var/www/tulcea-tool/conf/
 
 RUN rm /etc/apache2/sites-enabled/000-default.conf
