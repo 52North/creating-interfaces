@@ -66,6 +66,7 @@ services:
       - "443:443"
     volumes:
       - ./caddy/Caddyfile:/etc/Caddyfile
+      - letsencrypt:/root/.caddy/
     depends_on:
       - slupsk-tool
       - tulcea-tool
@@ -83,3 +84,4 @@ volumes:
   pgdata_tulcea:
   media-slupsk:
   media-tulcea:
+  letsencrypt:
