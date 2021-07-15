@@ -6,11 +6,11 @@ RUN mkdir /var/www/slupsk-tool/
 
 WORKDIR /var/www/slupsk-tool/
 
+COPY ./slupsk-tool/ /var/www/slupsk-tool/
+
 RUN python3 -m venv venv
 
 RUN . venv/bin/activate && pip install --upgrade --requirement requirements.txt
-
-COPY ./slupsk-tool/ /var/www/slupsk-tool/
 
 COPY ./docker-entrypoint.sh /usr/bin/docker-entrypoint.sh
 

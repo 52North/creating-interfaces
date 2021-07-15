@@ -6,11 +6,11 @@ RUN mkdir /var/www/tulcea-tool/
 
 WORKDIR /var/www/tulcea-tool/
 
+COPY ./tulcea-tool/ /var/www/tulcea-tool/
+
 RUN python3 -m venv venv
 
 RUN . venv/bin/activate && pip install --upgrade --requirement requirements.txt
-
-COPY ./tulcea-tool/ /var/www/tulcea-tool/
 
 COPY ./docker-entrypoint.sh /usr/bin/docker-entrypoint.sh
 
