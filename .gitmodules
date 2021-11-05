@@ -1,8 +1,8 @@
 [submodule "slupsk-tool"]
 	path = slupsk-tool
-	url = https://github.com/MartinPontius/slupsk-tool.git
+	url = https://github.com/52North/slupsk-tool.git
 	branch = master
 [submodule "tulcea-tool"]
 	path = tulcea-tool
-	url = https://github.com/MartinPontius/tulcea-tool.git
+	url = https://github.com/52North/tulcea-tool.git
 	branch = master
