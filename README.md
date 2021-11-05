@@ -33,7 +33,7 @@ If you only want to deploy one tool, you can comment the respective services and
 Funding organizations/projects
 -------
 
-The development of slupsk-tool was supported by several organizations and projects. Among other we would like to thank the following organisations and project
+The development of creating-interfaces was supported by several organizations and projects. Among other we would like to thank the following organisations and project
 
 | Project/Logo | Description |
 | :-------------: | :------------- |
