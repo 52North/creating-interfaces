@@ -24,6 +24,7 @@ There are two different tools included in the deplyoment:
 * Build the docker images: `docker compose build`
 * Start the docker containers: `docker compose up -d`
 * Once the containers are running, you can create a super user account:
+  * Find out the container id of the slupsk-tool or tulcea-tool: `docker ps`
   * Execute an interactive bash shell on the container: `docker exec -it <container-id> /bin/bash`
   * Activate virtual environment: `. venv/bin/activate`
   * Create super user account: `db/manage.py createsuperuser` 
